@@ -1,0 +1,95 @@
+---
+import { CountUp } from '../utils/CountUp';
+---
+
+<section class="relative min-h-[80vh] flex items-center overflow-hidden bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800">
+    <!-- Animated Background Pattern -->
+    <div class="absolute inset-0 z-0">
+        <div class="relative w-full h-full">
+            <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-300 dark:bg-purple-900 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+            <div class="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 dark:bg-yellow-900 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+            <div class="absolute -bottom-8 left-20 w-72 h-72 bg-blue-300 dark:bg-blue-900 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <!-- Content Column -->
+            <div class="space-y-8">
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                        Transform
+                    </span> Your Cloud Spending into Strategic Growth
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300">
+                    Unlock hidden savings and optimize your cloud infrastructure with AI-powered FinOps solutions.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button
+                        onclick="document.getElementById('contactModal').classList.remove('hidden')"
+                        class="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg"
+                    >
+                        Start Saving Today
+                    </button>
+                    <a
+                        href="#cost-saving"
+                        class="px-8 py-4 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-800 transform hover:scale-105 transition-all duration-200 text-center"
+                    >
+                        Calculate Savings
+                    </a>
+                </div>
+            </div>
+
+            <!-- Statistics Column -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 backdrop-blur-sm bg-opacity-80 dark:bg-opacity-80">
+    <div class="grid grid-cols-2 gap-8">
+        <div class="text-center p-4 border-r border-b border-gray-200 dark:border-gray-700">
+            <div class="text-4xl font-bold text-blue-600 mb-2">
+                <CountUp end={40} suffix="%" client:visible />
+            </div>
+            <p class="text-gray-600 dark:text-gray-300">Average Cost Optimization</p>
+        </div>
+        <div class="text-center p-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="text-4xl font-bold text-purple-600 mb-2">
+                <CountUp end={90} suffix="" client:visible />
+            </div>
+            <p class="text-gray-600 dark:text-gray-300">Days to ROI</p>
+        </div>
+        <div class="text-center p-4 border-r border-gray-200 dark:border-gray-700">
+            <div class="text-4xl font-bold text-green-600 mb-2">
+                <CountUp end={48} suffix="%" client:visible />
+            </div>
+            <p class="text-gray-600 dark:text-gray-300">Resource Optimization</p>
+        </div>
+        <div class="text-center p-4">
+            <div class="text-4xl font-bold text-yellow-600 mb-2">
+                <CountUp end={24} suffix="/7" client:visible />
+            </div>
+            <p class="text-gray-600 dark:text-gray-300">Continuous Optimization</p>
+        </div>
+    </div>
+</div>
+</section>
+
+<style>
+    @keyframes blob {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(30px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
+        100% { transform: translate(0px, 0px) scale(1); }
+    }
+
+    .animate-blob {
+        animation: blob 7s infinite;
+    }
+
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+
+    .animation-delay-4000 {
+        animation-delay: 4s;
+    }
+</style>

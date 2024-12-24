@@ -1,0 +1,76 @@
+---
+import FinOpsMaturityAssessment from '../components/FinOpsMaturityAssessment';
+import BestPracticesGuide from '../components/BestPracticesGuide';
+---
+
+<section id="finops-assessment" class="py-20 bg-white dark:bg-gray-900">
+  <div class="container mx-auto px-6">
+    <!-- Section Header -->
+    <div class="max-w-4xl mx-auto text-center mb-12">
+      <h2 class="text-4xl font-bold mb-6">Evaluate Your FinOps Maturity</h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300">
+        Assess your organization's cloud financial management capabilities and get personalized recommendations for improvement.
+      </p>
+    </div>
+
+    <!-- Feature Boxes -->
+    <div class="grid md:grid-cols-3 gap-8 mb-12">
+      <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+        <div class="text-4xl text-blue-600 mb-4">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-4">Comprehensive Evaluation</h3>
+        <p class="text-gray-600 dark:text-gray-400">
+          Assess your maturity across cost visibility, optimization practices, and governance automation.
+        </p>
+      </div>
+
+      <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+        <div class="text-4xl text-green-600 mb-4">
+          <i class="fas fa-bullseye"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-4">Actionable Insights</h3>
+        <p class="text-gray-600 dark:text-gray-400">
+          Receive tailored recommendations based on your current maturity level and goals.
+        </p>
+      </div>
+
+      <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+        <div class="text-4xl text-purple-600 mb-4">
+          <i class="fas fa-road"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-4">Clear Roadmap</h3>
+        <p class="text-gray-600 dark:text-gray-400">
+          Get a structured path forward to advance your FinOps practice and optimize cloud costs.
+        </p>
+      </div>
+    </div>
+
+    <!-- Assessment Component -->
+    <div class="mb-20">
+      <FinOpsMaturityAssessment client:load />
+    </div>
+
+    <!-- Best Practices Section -->
+    <div class="border-t border-gray-200 dark:border-gray-700 pt-20">
+      <div class="max-w-4xl mx-auto text-center mb-12">
+        <h2 class="text-4xl font-bold mb-6">Implementation Guide</h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300">
+          Ready to improve your cloud cost management? Start with these proven best practices to enhance your FinOps maturity.
+        </p>
+      </div>
+
+      <BestPracticesGuide client:load />
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-12">
+      <button
+        class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+        onclick="document.getElementById('contactModal').classList.remove('hidden')"
+      >
+        Let's Talk
+      </button>
+    </div>
+  </div>
+</section>
