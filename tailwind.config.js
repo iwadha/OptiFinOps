@@ -21,7 +21,7 @@ module.exports = {
         'mobile-md': '1rem',
         'mobile-lg': '1.5rem',
         'mobile-xl': '2rem'
-      } 
+      }, 
       container: {
         center: true,
         padding: {
