@@ -5,12 +5,13 @@ import { ProviderComparison } from '../components/NavigationComponents';
 ---
 
 <ResponsiveSectionLayout 
+  id="cost-saving"
   title="Cost Saving Analysis" 
   description="Calculate your potential cloud savings and see how our optimization solutions can benefit your organization."
+  containerClass="bg-gray-50 dark:bg-gray-800"
 >
-  <section id="cost-saving" class="bg-gray-50 dark:bg-gray-800">
-    <div class="container mx-auto px-6">
-      <CostCalculator client:load />
+  <div class="container mx-auto px-6">
+    <CostCalculator client:load />
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-mobile-md md:gap-8 mt-mobile-xl md:mt-16">
           {[
