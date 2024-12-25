@@ -1,17 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 
-const MobileNavigation = () => {
+export default function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  // Handle dark mode toggle
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('dark');
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    
+    if (newMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
   };
+
+  // Check initial theme on component mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDarkMode)) {
+      document.documentElement.classList.add('dark');
+      setIsDarkMode(true);
+    }
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
+  const handleContactModal = () => {
+    document.getElementById('contactModal').classList.remove('hidden');
+    closeMenu();
   };
 
   return (
@@ -50,37 +79,34 @@ const MobileNavigation = () => {
             <a 
               href="#home" 
               className="block py-3 text-lg hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
-              onClick={toggleMenu}
+              onClick={closeMenu}
             >
               Home
             </a>
             <a 
               href="#cost-calculator" 
               className="block py-3 text-lg hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
-              onClick={toggleMenu}
+              onClick={closeMenu}
             >
               Cost Calculator
             </a>
             <a 
               href="#finops-assessment" 
               className="block py-3 text-lg hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
-              onClick={toggleMenu}
+              onClick={closeMenu}
             >
               FinOps Assessment
             </a>
             <a 
               href="#success-stories" 
               className="block py-3 text-lg hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
-              onClick={toggleMenu}
+              onClick={closeMenu}
             >
               Success Stories
             </a>
             <button
               className="w-full py-3 bg-blue-600 text-white rounded-lg mt-4"
-              onClick={() => {
-                document.getElementById('contactModal').classList.remove('hidden');
-                toggleMenu();
-              }}
+              onClick={handleContactModal}
             >
               Contact Us
             </button>
@@ -89,6 +115,4 @@ const MobileNavigation = () => {
       )}
     </div>
   );
-};
-
-export default MobileNavigation;
+}
