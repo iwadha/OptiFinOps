@@ -80,7 +80,7 @@ export default function ContactForm() {
             
           <div className="mt-12 text-center text-gray-600 dark:text-gray-400">
             <div className="flex justify-center space-x-6">
-    
+            <a
               href="https://www.linkedin.com/company/optifinops/"
               target="_blank"
               rel="noopener noreferrer"
