@@ -1,52 +1,52 @@
-<section id="solution" class="py-20 bg-white dark:bg-gray-900">
-  <div class="container mx-auto px-6">
-    <div class="max-w-4xl mx-auto text-center mb-12">
-      <h2 class="text-4xl font-bold mb-6">Cloud FinOps Solution</h2>
-      <p class="text-xl mb-8">
-        Optimize your cloud spend and unleash the full potential of your cloud investment.
+---
+import ResponsiveSectionLayout from '../components/ResponsiveSectionLayout.astro';
+---
+
+<ResponsiveSectionLayout
+  id="solution"
+  title="Cloud FinOps Solution"
+  description="Optimize your cloud spend and unleash the full potential of your cloud investment."
+  containerClass="bg-white dark:bg-gray-900"
+>
+  <div class="grid md:grid-cols-2 gap-12 items-center">
+    <div class="space-y-6">
+      <p class="text-lg">
+        We provide an automated FinOps solution that optimizes your cloud spend across AWS, Azure, and Google Cloud. Whether you're using a single cloud provider or managing a multi-cloud environment, our service ensures your financial and operational goals are seamlessly aligned.
       </p>
+
+      <div class="space-y-4">
+        <div class="flex items-start space-x-4">
+          <i class="fas fa-check-circle text-green-500 mt-1"></i>
+          <p>Reduce cloud waste and inefficiencies.</p>
+        </div>
+        <div class="flex items-start space-x-4">
+          <i class="fas fa-check-circle text-green-500 mt-1"></i>
+          <p>Unlock maximum cost savings without compromising performance.</p>
+        </div>
+        <div class="flex items-start space-x-4">
+          <i class="fas fa-check-circle text-green-500 mt-1"></i>
+          <p>Provide actionable insights for better decision-making.</p>
+        </div>
+      </div>
+
+      <p class="text-lg">
+        We simplify complexity, helping you gain full visibility into your cloud spend while delivering measurable savings and driving strategic growth.
+      </p>
+
+      <button
+        class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+        onclick="document.getElementById('contactModal').classList.remove('hidden')"
+      >
+        Let's Talk
+      </button>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <div class="space-y-6">
-        <p class="text-lg">
-          We provide an automated FinOps solution that optimizes your cloud spend across AWS, Azure, and Google Cloud. Whether you're using a single cloud provider or managing a multi-cloud environment, our service ensures your financial and operational goals are seamlessly aligned.
-        </p>
-
-        <div class="space-y-4">
-          <div class="flex items-start space-x-4">
-            <i class="fas fa-check-circle text-green-500 mt-1"></i>
-            <p>Reduce cloud waste and inefficiencies.</p>
-          </div>
-          <div class="flex items-start space-x-4">
-            <i class="fas fa-check-circle text-green-500 mt-1"></i>
-            <p>Unlock maximum cost savings without compromising performance.</p>
-          </div>
-          <div class="flex items-start space-x-4">
-            <i class="fas fa-check-circle text-green-500 mt-1"></i>
-            <p>Provide actionable insights for better decision-making.</p>
-          </div>
-        </div>
-
-        <p class="text-lg">
-          We simplify complexity, helping you gain full visibility into your cloud spend while delivering measurable savings and driving strategic growth.
-        </p>
-
-        <button
-          class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200"
-          onclick="document.getElementById('contactModal').classList.remove('hidden')"
-        >
-          Let's Talk
-        </button>
-      </div>
-
-      <div class="relative">
-        <img
-          src="/images/solution.jpg"
-          alt="Cloud FinOps Solution"
-          class="rounded-lg shadow-xl"
-        />
-      </div>
+    <div class="relative">
+      <img
+        src="/images/solution.jpg"
+        alt="Cloud FinOps Solution"
+        class="rounded-lg shadow-xl"
+      />
     </div>
   </div>
-</section>
+</ResponsiveSectionLayout>
