@@ -1,102 +1,95 @@
 ---
-import CostCalculator from './CostCalculator';
-import { ProviderComparison } from './NavigationComponents';
+import ResponsiveSectionLayout from '../components/ResponsiveSectionLayout.astro';
+import CostCalculator from '../components/CostCalculator';
+import { ProviderComparison } from '../components/NavigationComponents';
 ---
 
+<ResponsiveSectionLayout 
+  title="Cost Saving Analysis" 
+  description="Calculate your potential cloud savings and see how our optimization solutions can benefit your organization."
+>
+  <CostCalculator client:load />
 
-<section id="cost-saving" class="py-20 bg-gray-50 dark:bg-gray-800">
-    <div class="container mx-auto px-6">
-        <div class="max-w-4xl mx-auto text-center mb-12">
-            <h2 class="text-4xl font-bold mb-6">Cost Saving Analysis</h2>
-            <p class="text-xl mb-8">
-                Calculate your potential cloud savings and see how our optimization solutions can benefit your organization.
-            </p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-mobile-md md:gap-8 mt-mobile-xl md:mt-16">
+    {[
+      {
+        title: "Usage Assessment",
+        icon: "fas fa-microscope",
+        description: "Analyze historical and real-time cloud usage data to identify underutilized resources, overprovisioned instances, or idle services."
+      },
+      {
+        title: "Cost Allocation Analysis",
+        icon: "fas fa-calculator",
+        description: "Detailed breakdown of costs across teams, projects, or departments to identify areas where spending is misaligned with business goals."
+      },
+      {
+        title: "Discount Optimization",
+        icon: "fas fa-percentage",
+        description: "Optimize Reserved Instances, Savings Plans, and Spot Instances to ensure the right balance between commitments and flexibility."
+      },
+      {
+        title: "Effective Savings Rate",
+        icon: "fas fa-chart-bar",
+        description: "Calculate the real-world impact of optimization efforts and percentage of cloud costs saved after applying discounts."
+      },
+      {
+        title: "Real-Time Actions",
+        icon: "fas fa-bolt",
+        description: "Take immediate actions to implement savings strategies, from workload consolidation to storage tier optimization."
+      },
+      {
+        title: "Future Forecasting",
+        icon: "fas fa-chart-line",
+        description: "Predict future costs based on trends in usage and pricing to help plan budgets and manage commitment risks."
+      }
+    ].map(item => (
+      <div class="bg-white dark:bg-gray-900 rounded-lg p-mobile-md md:p-6 shadow-lg">
+        <div class="text-4xl text-blue-600 mb-mobile-md">
+          <i class={item.icon}></i>
         </div>
+        <h3 class="text-xl-mobile md:text-xl font-bold mb-mobile-sm">{item.title}</h3>
+        <p class="text-sm-mobile md:text-base text-gray-600 dark:text-gray-400">{item.description}</p>
+      </div>
+    ))}
+  </div>
 
-        <CostCalculator client:load />
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-            {[
-                {
-                    title: "Usage Assessment",
-                    icon: "fas fa-microscope",
-                    description: "Analyze historical and real-time cloud usage data to identify underutilized resources, overprovisioned instances, or idle services."
-                },
-                {
-                    title: "Cost Allocation Analysis",
-                    icon: "fas fa-calculator",
-                    description: "Detailed breakdown of costs across teams, projects, or departments to identify areas where spending is misaligned with business goals."
-                },
-                {
-                    title: "Discount Optimization",
-                    icon: "fas fa-percentage",
-                    description: "Optimize Reserved Instances, Savings Plans, and Spot Instances to ensure the right balance between commitments and flexibility."
-                },
-                {
-                    title: "Effective Savings Rate",
-                    icon: "fas fa-chart-bar",
-                    description: "Calculate the real-world impact of optimization efforts and percentage of cloud costs saved after applying discounts."
-                },
-                {
-                    title: "Real-Time Actions",
-                    icon: "fas fa-bolt",
-                    description: "Take immediate actions to implement savings strategies, from workload consolidation to storage tier optimization."
-                },
-                {
-                    title: "Future Forecasting",
-                    icon: "fas fa-chart-line",
-                    description: "Predict future costs based on trends in usage and pricing to help plan budgets and manage commitment risks."
-                }
-            ].map(item => (
-                <div class="bg-white dark:bg-gray-900 rounded-lg p-6 shadow-lg">
-                    <div class="text-4xl text-blue-600 mb-4">
-                        <i class={item.icon}></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">{item.title}</h3>
-                    <p class="text-gray-600 dark:text-gray-400">{item.description}</p>
-                </div>
-            ))}
+  <div class="mt-mobile-xl md:mt-12 max-w-4xl mx-auto bg-white dark:bg-gray-900 rounded-lg p-mobile-lg md:p-8 shadow-lg">
+    <h3 class="text-2xl-mobile md:text-2xl font-bold mb-mobile-md text-center">Why It's Valuable</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-mobile-md md:gap-6">
+      <div class="space-y-mobile-sm md:space-y-4">
+        <div class="flex items-start space-x-mobile-sm">
+          <i class="fas fa-check-circle text-green-500 mt-1"></i>
+          <p class="text-sm-mobile md:text-base">Uncover hidden costs and inefficiencies</p>
         </div>
-
-        <div class="mt-12 max-w-4xl mx-auto bg-white dark:bg-gray-900 rounded-lg p-8 shadow-lg">
-            <h3 class="text-2xl font-bold mb-6 text-center">Why It's Valuable</h3>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="space-y-4">
-                    <div class="flex items-start space-x-4">
-                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                        <p>Uncover hidden costs and inefficiencies</p>
-                    </div>
-                    <div class="flex items-start space-x-4">
-                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                        <p>Automate repetitive cost-saving tasks</p>
-                    </div>
-                </div>
-                <div class="space-y-4">
-                    <div class="flex items-start space-x-4">
-                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                        <p>Improve decision-making with granular insights</p>
-                    </div>
-                    <div class="flex items-start space-x-4">
-                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
-                        <p>Free up resources for strategic initiatives</p>
-                    </div>
-                </div>
-            </div>
+        <div class="flex items-start space-x-mobile-sm">
+          <i class="fas fa-check-circle text-green-500 mt-1"></i>
+          <p class="text-sm-mobile md:text-base">Automate repetitive cost-saving tasks</p>
         </div>
-
-        <div class="mt-16 bg-gray-50 dark:bg-gray-800 rounded-lg p-8 shadow-lg">
-            <h3 class="text-2xl font-bold mb-8 text-center">Cloud Provider Comparison</h3>
-            <ProviderComparison client:load />
+      </div>
+      <div class="space-y-mobile-sm md:space-y-4">
+        <div class="flex items-start space-x-mobile-sm">
+          <i class="fas fa-check-circle text-green-500 mt-1"></i>
+          <p class="text-sm-mobile md:text-base">Improve decision-making with granular insights</p>
         </div>
-
-
-        <div class="text-center mt-12">
-            <button
-                class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200"
-                onclick="document.getElementById('contactModal').classList.remove('hidden')"
-            >
-                Let's Talk
-            </button>
+        <div class="flex items-start space-x-mobile-sm">
+          <i class="fas fa-check-circle text-green-500 mt-1"></i>
+          <p class="text-sm-mobile md:text-base">Free up resources for strategic initiatives</p>
         </div>
+      </div>
     </div>
-</section>
+  </div>
+
+  <div class="mt-mobile-xl md:mt-16 bg-gray-50 dark:bg-gray-800 rounded-lg p-mobile-lg md:p-8 shadow-lg">
+    <h3 class="text-2xl-mobile md:text-2xl font-bold mb-mobile-lg text-center">Cloud Provider Comparison</h3>
+    <ProviderComparison client:load />
+  </div>
+
+  <div class="text-center mt-mobile-xl md:mt-12">
+    <button
+      class="bg-blue-600 text-white px-mobile-lg py-mobile-sm md:px-8 md:py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+      onclick="document.getElementById('contactModal').classList.remove('hidden')"
+    >
+      Let's Talk
+    </button>
+  </div>
+</ResponsiveSectionLayout>
