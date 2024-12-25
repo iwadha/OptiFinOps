@@ -47,11 +47,13 @@ export default function MobileNavigation() {
     <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 shadow-md">
       <div className="flex justify-between items-center p-4">
         {/* Logo */}
-        <img 
-          src="/logo.svg" 
-          alt="OptiFinOps Logo" 
-          className="h-8"
-        />
+        <a href={import.meta.env.BASE_URL} className="hover:opacity-90 transition-opacity">
+          <img 
+            src="/images/logo.png" 
+            alt="Company Logo" 
+            className="h-10" 
+          />
+        </a>
 
         <div className="flex items-center space-x-4">
           {/* Dark Mode Toggle */}
@@ -77,38 +79,52 @@ export default function MobileNavigation() {
         <div className="fixed inset-0 top-16 bg-white dark:bg-gray-900 z-40 overflow-y-auto">
           <nav className="px-4 py-6 space-y-4">
             <a 
-              href="#home" 
+              href="#solution" 
               className="block py-3 text-lg hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
               onClick={closeMenu}
             >
-              Home
+              Solution
             </a>
             <a 
-              href="#cost-calculator" 
+              href="#how-it-works" 
               className="block py-3 text-lg hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
               onClick={closeMenu}
             >
-              Cost Calculator
+              How It Works
             </a>
             <a 
               href="#finops-assessment" 
               className="block py-3 text-lg hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
               onClick={closeMenu}
             >
-              FinOps Assessment
+              Assessment
             </a>
             <a 
-              href="#success-stories" 
+              href="#cost-saving" 
               className="block py-3 text-lg hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
               onClick={closeMenu}
             >
-              Success Stories
+              Cost Saving
+            </a>
+            <a 
+              href="#faq" 
+              className="block py-3 text-lg hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+              onClick={closeMenu}
+            >
+              FAQ
+            </a>
+            <a 
+              href="#about" 
+              className="block py-3 text-lg hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+              onClick={closeMenu}
+            >
+              About Us
             </a>
             <button
               className="w-full py-3 bg-blue-600 text-white rounded-lg mt-4"
               onClick={handleContactModal}
             >
-              Contact Us
+              Let's Talk
             </button>
           </nav>
         </div>
