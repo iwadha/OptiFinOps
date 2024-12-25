@@ -4,6 +4,24 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+     fontSize: {
+        // Mobile-first responsive typography
+        'xs-mobile': ['0.75rem', '1rem'],
+        'sm-mobile': ['0.875rem', '1.25rem'],
+        'base-mobile': ['1rem', '1.5rem'],
+        'xl-mobile': ['1.25rem', '1.75rem'],
+        '2xl-mobile': ['1.5rem', '2rem'],
+        '3xl-mobile': ['1.875rem', '2.25rem'],
+        '4xl-mobile': ['2.25rem', '2.5rem']
+      },
+      spacing: {
+        // More granular mobile spacing
+        'mobile-xs': '0.25rem',
+        'mobile-sm': '0.5rem',
+        'mobile-md': '1rem',
+        'mobile-lg': '1.5rem',
+        'mobile-xl': '2rem'
+      } 
       container: {
         center: true,
         padding: {
