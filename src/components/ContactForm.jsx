@@ -77,16 +77,19 @@ export default function ContactForm() {
               </div>
             )}
           </form>
-
+            
           <div className="mt-12 text-center text-gray-600 dark:text-gray-400">
             <div className="flex justify-center space-x-6">
-              <a
-                href="https://www.linkedin.com/company/optifinops/"
-                className="hover:text-blue-600"
-              >
-                <i className="fab fa-linkedin text-2xl"></i>
-              </a>
-            </div>
+    
+              href="https://www.linkedin.com/company/optifinops/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-600"
+            >
+              <i className="fab fa-linkedin text-2xl"></i>
+          </a>
+        </div>
+          
             <p className="mt-4">© 2024 OptiFinOps FZE. All rights reserved.</p>
           </div>
         </div>
