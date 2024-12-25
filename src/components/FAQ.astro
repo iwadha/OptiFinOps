@@ -1,7 +1,13 @@
 ---
-import { FAQSection } from './NavigationComponents';
+import ResponsiveSectionLayout from '../components/ResponsiveSectionLayout.astro';
+import { FAQSection } from '../components/NavigationComponents';
 ---
 
-<section id="faq">
+<ResponsiveSectionLayout 
+  id="faq"
+  title="Frequently Asked Questions" 
+  description="Find answers to common questions about our cloud cost optimization solutions"
+  containerClass="bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900"
+>
   <FAQSection client:load />
-</section>
+</ResponsiveSectionLayout>
