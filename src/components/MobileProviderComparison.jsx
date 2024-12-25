@@ -5,38 +5,139 @@ const MobileProviderComparison = () => {
   const [activeProvider, setActiveProvider] = useState('aws');
   const [activeCategory, setActiveCategory] = useState('overview');
 
-  const providers = {
+  const providerData = {
     aws: {
       name: "AWS",
       icon: Server,
       bgGradient: "from-orange-500 to-orange-600",
-      color: "text-orange-600"
+      color: "text-orange-600",
+      overview: {
+        marketShare: "33%",
+        globalRegions: "25",
+        serviceCount: "200+",
+        certifications: ["SOC", "ISO", "PCI", "HIPAA"]
+      },
+      compute: {
+        types: ["On-demand", "Spot", "Reserved Instances", "Savings Plans"],
+        features: [
+          "Auto Scaling",
+          "Load Balancing",
+          "Container Services",
+          "Serverless Computing"
+        ],
+        pricing: "Starting at $0.023/hour"
+      },
+      storage: {
+        types: ["S3", "EBS", "EFS", "Glacier"],
+        features: [
+          "Automatic tiering",
+          "Cross-region replication",
+          "Versioning",
+          "Lifecycle management"
+        ],
+        pricing: "$0.023/GB - $0.125/GB"
+      },
+      database: {
+        engines: ["MySQL", "PostgreSQL", "Oracle", "SQL Server"],
+        features: [
+          "Automated backups",
+          "Read replicas",
+          "Multi-AZ deployment",
+          "Automated patching"
+        ],
+        pricing: "Pay per hour + storage"
+      }
     },
     azure: {
       name: "Azure",
       icon: Cloud,
       bgGradient: "from-blue-500 to-blue-600",
-      color: "text-blue-600"
+      color: "text-blue-600",
+      overview: {
+        marketShare: "22%",
+        globalRegions: "60+",
+        serviceCount: "200+",
+        certifications: ["SOC", "ISO", "PCI", "HIPAA"]
+      },
+      compute: {
+        types: ["Pay-as-you-go", "Spot", "Reserved Instances"],
+        features: [
+          "VM Scale Sets",
+          "Kubernetes Service",
+          "Functions",
+          "App Service"
+        ],
+        pricing: "Starting at $0.020/hour"
+      },
+      storage: {
+        types: ["Blob", "Files", "Disks", "Archive"],
+        features: [
+          "Hot/Cool/Archive tiers",
+          "Geo-redundancy",
+          "Lifecycle management",
+          "CDN integration"
+        ],
+        pricing: "$0.018/GB - $0.12/GB"
+      },
+      database: {
+        engines: ["SQL Database", "MySQL", "PostgreSQL", "Cosmos DB"],
+        features: [
+          "Automatic tuning",
+          "Geo-replication",
+          "Serverless tier",
+          "Built-in intelligence"
+        ],
+        pricing: "DTU or vCore based"
+      }
     },
     gcp: {
       name: "Google Cloud",
       icon: Cpu,
       bgGradient: "from-green-500 to-green-600",
-      color: "text-green-600"
+      color: "text-green-600",
+      overview: {
+        marketShare: "9%",
+        globalRegions: "24",
+        serviceCount: "100+",
+        certifications: ["SOC", "ISO", "PCI", "HIPAA"]
+      },
+      compute: {
+        types: ["On-demand", "Preemptible", "Committed use"],
+        features: [
+          "Instance Groups",
+          "Kubernetes Engine",
+          "Cloud Functions",
+          "App Engine"
+        ],
+        pricing: "Starting at $0.021/hour"
+      },
+      storage: {
+        types: ["Cloud Storage", "Persistent Disk", "Filestore"],
+        features: [
+          "Multi-regional",
+          "Object lifecycle",
+          "Strong consistency",
+          "CDN integration"
+        ],
+        pricing: "$0.020/GB - $0.115/GB"
+      },
+      database: {
+        engines: ["Cloud SQL", "Cloud Spanner", "BigTable", "Firestore"],
+        features: [
+          "Automatic replication",
+          "Horizontal scaling",
+          "ML integration",
+          "Serverless options"
+        ],
+        pricing: "Per-second billing"
+      }
     }
   };
-
-  const categories = [
-    { id: 'overview', label: 'Overview' },
-    { id: 'compute', label: 'Compute' },
-    { id: 'storage', label: 'Storage' },
-    { id: 'database', label: 'Database' }
-  ];
 
   // Mobile-optimized provider selector
   const ProviderSelector = () => (
     <div className="flex overflow-x-auto gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg mb-4">
-      {Object.entries(providers).map(([key, provider]) => (
+      {Object.entries(providerData).map(([key, provider]) => (
         <button
           key={key}
           onClick={() => setActiveProvider(key)}
@@ -60,7 +161,12 @@ const MobileProviderComparison = () => {
   // Mobile-optimized category tabs
   const CategoryTabs = () => (
     <div className="flex overflow-x-auto gap-2 mb-4">
-      {categories.map(category => (
+      {[
+        { id: 'overview', label: 'Overview' },
+        { id: 'compute', label: 'Compute' },
+        { id: 'storage', label: 'Storage' },
+        { id: 'database', label: 'Database' }
+      ].map(category => (
         <button
           key={category.id}
           onClick={() => setActiveCategory(category.id)}
@@ -105,9 +211,10 @@ const MobileProviderComparison = () => {
     </div>
   );
 
-  // Content mapping based on category
+  // Render content based on active category
   const renderContent = () => {
     const provider = activeProvider;
+    const data = providerData[provider];
     
     switch (activeCategory) {
       case 'overview':
@@ -115,19 +222,19 @@ const MobileProviderComparison = () => {
           <>
             <ContentCard
               title="Market Position"
-              content={`Market Share: ${providerData[provider].overview.marketShare}`}
+              content={`Market Share: ${data.overview.marketShare}`}
             />
             <ContentCard
               title="Global Presence"
-              content={`${providerData[provider].overview.globalRegions} Global Regions`}
+              content={`${data.overview.globalRegions} Global Regions`}
             />
             <ContentCard
               title="Available Services"
-              content={providerData[provider].overview.serviceCount}
+              content={data.overview.serviceCount}
             />
             <ContentCard
               title="Certifications"
-              content={providerData[provider].overview.certifications}
+              content={data.overview.certifications}
               type="tags"
             />
           </>
@@ -138,20 +245,17 @@ const MobileProviderComparison = () => {
           <>
             <ContentCard
               title="Instance Types"
-              content={providerData[provider].compute.types}
+              content={data.compute.types}
               type="tags"
             />
             <ContentCard
               title="Key Features"
-              content={providerData[provider].compute.features}
+              content={data.compute.features}
               type="list"
             />
             <ContentCard
-              title="Pricing Options"
-              content={Object.entries(providerData[provider].compute.pricing).map(
-                ([key, value]) => `${key}: ${value}`
-              )}
-              type="list"
+              title="Pricing"
+              content={data.compute.pricing}
             />
           </>
         );
@@ -161,17 +265,17 @@ const MobileProviderComparison = () => {
           <>
             <ContentCard
               title="Storage Types"
-              content={providerData[provider].storage.types}
+              content={data.storage.types}
               type="tags"
             />
             <ContentCard
               title="Features"
-              content={providerData[provider].storage.features}
+              content={data.storage.features}
               type="list"
             />
             <ContentCard
               title="Pricing Range"
-              content={providerData[provider].storage.pricing}
+              content={data.storage.pricing}
             />
           </>
         );
@@ -181,17 +285,17 @@ const MobileProviderComparison = () => {
           <>
             <ContentCard
               title="Database Engines"
-              content={providerData[provider].database.engines}
+              content={data.database.engines}
               type="tags"
             />
             <ContentCard
               title="Features"
-              content={providerData[provider].database.features}
+              content={data.database.features}
               type="list"
             />
             <ContentCard
               title="Pricing Model"
-              content={providerData[provider].database.pricing}
+              content={data.database.pricing}
             />
           </>
         );
@@ -215,3 +319,6 @@ const MobileProviderComparison = () => {
       </div>
     </div>
   );
+};
+
+export default MobileProviderComparison;
