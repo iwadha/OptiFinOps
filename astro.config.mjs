@@ -4,8 +4,8 @@ import react from '@astrojs/react';
 
 export default defineConfig({
   integrations: [tailwind(), react()],
-  site: 'https://iwadha.github.io',
-  base: '/OptiFinOps',  // Remove trailing slash
+  site: 'https://optifinops.com',
+  base: '/',
   output: 'static',
   build: {
     assets: '_assets'
