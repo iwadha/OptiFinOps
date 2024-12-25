@@ -92,7 +92,7 @@ export const FAQSection = () => {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-200 hover:shadow-xl"
+              className="bg-white/5 dark:bg-gray-800/50 rounded-xl shadow-lg overflow-hidden transition-all duration-200 hover:shadow-xl"
             >
               <button
                 onClick={() => toggleFAQ(index)}
