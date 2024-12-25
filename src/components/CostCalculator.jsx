@@ -1,15 +1,6 @@
 import React, { useState } from "react";
 import { HelpCircle } from "lucide-react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+import { CostProjectionChart, SavingsSummary } from './MobileResponsiveComponents';
 
 export default function CostCalculator() {
   const [formData, setFormData] = useState({
@@ -360,83 +351,11 @@ export default function CostCalculator() {
 
         {savings && (
           <div className="mt-8 space-y-8">
-            <div className="p-6 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
-              <h4 className="text-xl font-bold mb-6 text-center">
-                Estimated Savings
-              </h4>
-              <div className="grid grid-cols-3 gap-6">
-                <div className="text-center">
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                    Monthly
-                  </p>
-                  <p className="text-2xl font-bold text-blue-600">
-                    ${savings.monthly}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                    Annual
-                  </p>
-                  <p className="text-2xl font-bold text-green-600">
-                    ${savings.annual}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                    Savings
-                  </p>
-                  <p className="text-2xl font-bold text-purple-600">
-                    {savings.percentage}%
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg">
-              <h4 className="text-lg font-semibold mb-4">
-                12-Month Cost Projection
-              </h4>
-              <div className="h-80 w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={savings.projection}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                    <XAxis dataKey="month" stroke="#6B7280" />
-                    <YAxis stroke="#6B7280" tickFormatter={formatCurrency} />
-                    <Tooltip
-                      formatter={(value) => formatCurrency(value)}
-                      contentStyle={{
-                        backgroundColor: "#1F2937",
-                        border: "none",
-                        borderRadius: "0.5rem",
-                        color: "#F3F4F6",
-                      }}
-                    />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="baseline"
-                      name="Current Cost"
-                      stroke="#6B7280"
-                      strokeWidth={2}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="optimized"
-                      name="Optimized Cost"
-                      stroke="#3B82F6"
-                      strokeWidth={2}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="savings"
-                      name="Monthly Savings"
-                      stroke="#10B981"
-                      strokeWidth={2}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
+            <SavingsSummary savings={savings} />
+            <CostProjectionChart 
+              data={savings.projection} 
+              formatCurrency={formatCurrency}
+            />
           </div>
         )}
       </div>
