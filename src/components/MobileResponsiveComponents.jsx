@@ -38,7 +38,7 @@ export const CostProjectionChart = ({ data, formatCurrency }) => {
           <LineChart
             data={data}
             margin={isMobile ? 
-              { top: 5, right: 10, left: -20, bottom: 0 } : 
+              { top: 5, right: 10, left: -10, bottom: 0 } : 
               { top: 5, right: 30, left: 20, bottom: 5 }
             }
           >
@@ -47,7 +47,10 @@ export const CostProjectionChart = ({ data, formatCurrency }) => {
               dataKey="month" 
               stroke="#6B7280"
               tick={{ fontSize: isMobile ? 10 : 12 }}
-              interval={isMobile ? 1 : 0}
+              angle={isMobile ? -45 : 0}
+              textAnchor={isMobile ? "end" : "middle"}
+              height={isMobile ? 60 : 30}
+              tickMargin={isMobile ? 5 : 0}
             />
             <YAxis 
               stroke="#6B7280"
@@ -105,7 +108,7 @@ export const CostProjectionChart = ({ data, formatCurrency }) => {
   );
 };
 
-// Enhanced savings summary component with mobile responsiveness
+// No changes needed for SavingsSummary
 export const SavingsSummary = ({ savings }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 p-4 sm:p-6 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
