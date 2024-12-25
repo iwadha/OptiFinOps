@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { useForm } from "@formspree/react";
-import { X, Loader2, Send, CheckCircle } from "lucide-react";
+import { X, Loader2, Send, CheckCircle } from 'lucide-react';
 
 export default function ContactModal() {
-  const [isVisible, setIsVisible] = useState(true); // Changed to true for development
+  const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    company: "",
-    message: "",
-    monthlySpend: "",
-    provider: "aws",
+    name: '',
+    email: '',
+    company: '',
+    message: '',
+    monthlySpend: '',
+    provider: 'aws'
   });
 
   const [state, handleSubmit] = useForm("xnnnndzg"); // Your Formspree form ID
@@ -18,27 +18,52 @@ export default function ContactModal() {
   // Handle modal visibility
   useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         closeModal();
       }
     };
+    
+    // Add event listener for modal opening
+    const handleModalOpen = () => {
+      setIsVisible(true);
+    };
 
-    window.addEventListener("keydown", handleEscape);
-    return () => window.removeEventListener("keydown", handleEscape);
+    window.addEventListener('keydown', handleEscape);
+    
+    // Add event listener to the modal element
+    const modalElement = document.getElementById('contactModal');
+    if (modalElement) {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+            if (!modalElement.classList.contains('hidden')) {
+              handleModalOpen();
+            }
+          }
+        });
+      });
+
+      observer.observe(modalElement, { attributes: true });
+
+      return () => {
+        observer.disconnect();
+        window.removeEventListener('keydown', handleEscape);
+      };
+    }
   }, []);
 
   const closeModal = () => {
     setIsVisible(false);
-    document.getElementById("contactModal").classList.add("hidden");
+    document.getElementById('contactModal').classList.add('hidden');
     if (state.succeeded) {
       state.reset();
       setFormData({
-        name: "",
-        email: "",
-        company: "",
-        message: "",
-        monthlySpend: "",
-        provider: "aws",
+        name: '',
+        email: '',
+        company: '',
+        message: '',
+        monthlySpend: '',
+        provider: 'aws'
       });
     }
   };
@@ -46,7 +71,7 @@ export default function ContactModal() {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -59,10 +84,8 @@ export default function ContactModal() {
   return (
     <div
       id="contactModal"
-      className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center ${
-        isVisible ? "" : "hidden"
-      }`}
-      onClick={(e) => e.target.id === "contactModal" && closeModal()}
+      className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden`}
+      onClick={(e) => e.target.id === 'contactModal' && closeModal()}
     >
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-8 max-w-md w-full mx-4 relative">
         <div className="flex justify-between items-center mb-6">
