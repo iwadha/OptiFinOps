@@ -2,10 +2,9 @@
 import '../styles/enhanced-global.css';
 import DarkModeToggle from '../components/DarkModeToggle.astro';
 import ContactModal from '../components/ContactModal';
-
+import MobileNavigation from '../components/MobileNavigation.jsx'; // Add this import
 const { title } = Astro.props;
 ---
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,15 +17,18 @@ const { title } = Astro.props;
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="dark:bg-gray-900 dark:text-white transition-colors duration-200">
-    <header class="fixed w-full bg-white dark:bg-gray-900 shadow-md z-50">
+    <!-- Add Mobile Navigation -->
+    <MobileNavigation client:load />
+
+    <header class="hidden md:block fixed w-full bg-white dark:bg-gray-900 shadow-md z-50">
         <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href={import.meta.env.BASE_URL} class="hover:opacity-90 transition-opacity">
-    <img 
-        src="/images/logo.png" 
-        alt="Company Logo" 
-        class="h-16" 
-    />
-</a>
+                <img 
+                    src="/images/logo.png" 
+                    alt="Company Logo" 
+                    class="h-16" 
+                />
+            </a>
             <div class="flex items-center space-x-6">
                 <a href="#solution" class="hover:text-blue-600 dark:hover:text-blue-400">Solution</a>
                 <a href="#how-it-works" class="hover:text-blue-600 dark:hover:text-blue-400">How It Works</a>
@@ -41,13 +43,10 @@ const { title } = Astro.props;
             </div>
         </nav>
     </header>
-
     <main class="pt-20">
         <slot />
     </main>
-
     <ContactModal client:load />
-
     <script>
         // Dark mode initialization
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -55,12 +54,10 @@ const { title } = Astro.props;
         } else {
             document.documentElement.classList.remove('dark');
         }
-
         // Modal functionality
         document.getElementById('contactBtn')?.addEventListener('click', () => {
             document.getElementById('contactModal')?.classList.remove('hidden');
         });
-
          // Add smooth scroll initialization here
         import { initSmoothScroll } from '../scripts/smoothScroll';
         initSmoothScroll();
