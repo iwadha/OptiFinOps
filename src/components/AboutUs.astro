@@ -1,7 +1,6 @@
 ---
 import ResponsiveSectionLayout from '../components/ResponsiveSectionLayout.astro';
 ---
-
 <ResponsiveSectionLayout
   id="about"
   title="About Us"
@@ -16,46 +15,40 @@ import ResponsiveSectionLayout from '../components/ResponsiveSectionLayout.astro
         class="rounded-lg shadow-xl w-full"
       />
     </div>
-
     <div class="space-y-6">
       <p>
         We specialize in helping businesses simplify and optimize cloud financial management across AWS, Azure, and Google Cloud.
       </p>
-
       <div class="space-y-4">
         <div class="flex items-start space-x-4">
           <i class="fas fa-check-circle text-green-500 mt-1"></i>
           <p>We leverage extensive expertise and industry-leading tools to provide a truly automated, hassle-free cloud optimization experience.</p>
         </div>
-
         <div class="flex items-start space-x-4">
           <i class="fas fa-check-circle text-green-500 mt-1"></i>
           <p>By integrating with AWS, Azure, and Google Cloud, we deliver results tailored to your unique workloads, ensuring both immediate and long-term savings.</p>
         </div>
-
         <div class="flex items-start space-x-4">
           <i class="fas fa-check-circle text-green-500 mt-1"></i>
           <p>From startups to large enterprises, our solutions are trusted to simplify complexity, improve performance, and maximize ROI on cloud investments.</p>
         </div>
       </div>
-
       <p class="text-xl font-semibold mt-6">
         Your trusted partner in cloud cost optimization.
       </p>
-
       <p class="text-lg">
         Let's help you make smarter financial decisions in the cloud—so you can focus on what you do best.
       </p>
-
-      <button
-        class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200"
-        onclick="document.getElementById('contactModal').classList.remove('hidden')"
-      >
-        Let's Talk
-      </button>
+      <div class="text-center md:text-right">
+        <button
+          class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+          onclick="document.getElementById('contactModal').classList.remove('hidden')"
+        >
+          Let's Talk
+        </button>
+      </div>
     </div>
   </div>
-
   <div class="mt-20 border-t border-gray-200 dark:border-gray-700 pt-16">
     <div class="text-center mb-12">
       <h3 class="text-3xl font-bold mb-6">Strategic Partnership</h3>
