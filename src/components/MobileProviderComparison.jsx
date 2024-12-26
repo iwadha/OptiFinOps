@@ -59,7 +59,7 @@ const MobileProviderComparison = () => {
       }
     },
     gcp: {
-      name: "Google Cloud",
+      name: "Google",
       bgGradient: "from-green-500 to-green-600",
       color: "text-green-600",
       overview: {
