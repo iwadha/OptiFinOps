@@ -146,7 +146,7 @@ export const ProviderComparison = () => {
                 <th className="p-4 text-left">Provider</th>
                 <th className="p-4 text-left">AWS</th>
                 <th className="p-4 text-left">Azure</th>
-                <th className="p-4 text-left">Google Cloud</th>
+                <th className="p-4 text-left">Google</th>
               </tr>
             </thead>
             <tbody>
