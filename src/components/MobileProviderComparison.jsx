@@ -8,13 +8,12 @@ const MobileProviderComparison = () => {
   const providerData = {
     aws: {
       name: "AWS",
-      icon: Server,
-      bgColor: "bg-orange-500",
-      textColor: "text-orange-600",
+      bgGradient: "from-orange-500 to-orange-600",
+      color: "text-orange-600",
       overview: {
         marketShare: "33%",
-        globalRegions: "25 regions worldwide",
-        serviceCount: "200+ services",
+        globalRegions: 25,
+        serviceCount: "200+",
         certifications: ["SOC", "ISO", "PCI", "HIPAA"]
       },
       compute: {
@@ -35,13 +34,12 @@ const MobileProviderComparison = () => {
     },
     azure: {
       name: "Azure",
-      icon: Cloud,
-      bgColor: "bg-blue-500",
-      textColor: "text-blue-600",
+      bgGradient: "from-blue-500 to-blue-600",
+      color: "text-blue-600",
       overview: {
         marketShare: "22%",
-        globalRegions: "60 regions worldwide",
-        serviceCount: "200+ services",
+        globalRegions: 60,
+        serviceCount: "200+",
         certifications: ["SOC", "ISO", "PCI", "HIPAA"]
       },
       compute: {
@@ -62,13 +60,12 @@ const MobileProviderComparison = () => {
     },
     gcp: {
       name: "Google Cloud",
-      icon: Cpu,
-      bgColor: "bg-green-500",
-      textColor: "text-green-600",
+      bgGradient: "from-green-500 to-green-600",
+      color: "text-green-600",
       overview: {
         marketShare: "9%",
-        globalRegions: "24 regions worldwide",
-        serviceCount: "100+ services",
+        globalRegions: 24,
+        serviceCount: "100+",
         certifications: ["SOC", "ISO", "PCI", "HIPAA"]
       },
       compute: {
@@ -89,77 +86,80 @@ const MobileProviderComparison = () => {
     }
   };
 
+  const CategoryCard = ({ title, content, type }) => (
+    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 mb-4 shadow-sm">
+      <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">{title}</h3>
+      {type === "list" ? (
+        <ul className="space-y-2">
+          {content.map((item, idx) => (
+            <li key={idx} className="flex items-start gap-2 text-sm">
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2" />
+              <span className="text-gray-600 dark:text-gray-400">{item}</span>
+            </li>
+          ))}
+        </ul>
+      ) : type === "tags" ? (
+        <div className="flex flex-wrap gap-2">
+          {content.map((tag, idx) => (
+            <span 
+              key={idx}
+              className="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      ) : (
+        <p className="text-sm text-gray-600 dark:text-gray-400">{content}</p>
+      )}
+    </div>
+  );
+
   const renderContent = () => {
     const provider = providerData[activeProvider];
     const data = provider[activeCategory];
-    
+
     switch (activeCategory) {
       case 'overview':
         return (
-          <div className="space-y-4">
-            {Object.entries(data).map(([key, value]) => (
-              <div key={key} className="bg-white dark:bg-gray-800 rounded-lg p-4">
-                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}
-                </h4>
-                {Array.isArray(value) ? (
-                  <div className="flex flex-wrap gap-2">
-                    {value.map((item, idx) => (
-                      <span 
-                        key={idx} 
-                        className="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{value}</p>
-                )}
-              </div>
-            ))}
-          </div>
+          <>
+            <CategoryCard
+              title="Market Share"
+              content={provider.overview.marketShare}
+            />
+            <CategoryCard
+              title="Global Regions"
+              content={`${provider.overview.globalRegions} regions worldwide`}
+            />
+            <CategoryCard
+              title="Available Services"
+              content={provider.overview.serviceCount}
+            />
+            <CategoryCard
+              title="Certifications"
+              content={provider.overview.certifications}
+              type="tags"
+            />
+          </>
         );
       default:
         return (
-          <div className="space-y-4">
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-4">
-              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Types
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {data.types.map((type, idx) => (
-                  <span 
-                    key={idx}
-                    className="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full"
-                  >
-                    {type}
-                  </span>
-                ))}
-              </div>
-            </div>
-            
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-4">
-              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Features
-              </h4>
-              <ul className="space-y-2">
-                {data.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-4">
-              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Pricing
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{data.pricing}</p>
-            </div>
-          </div>
+          <>
+            <CategoryCard
+              title={`${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} Types`}
+              content={data.types}
+              type="tags"
+            />
+            <CategoryCard
+              title="Key Features"
+              content={data.features}
+              type="list"
+            />
+            <CategoryCard
+              title="Pricing"
+              content={data.pricing}
+            />
+          </>
         );
     }
   };
@@ -167,27 +167,26 @@ const MobileProviderComparison = () => {
   return (
     <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
       <div className="flex overflow-x-auto gap-2 mb-4 p-2 bg-white dark:bg-gray-800 rounded-lg">
-        {Object.entries(providerData).map(([key, provider]) => {
-          const Icon = provider.icon;
-          return (
-            <button
-              key={key}
-              onClick={() => setActiveProvider(key)}
-              className={`flex items-center gap-2 p-2 rounded-lg flex-shrink-0 transition-colors
-                ${activeProvider === key ? "bg-gray-100 dark:bg-gray-700" : ""}`}
-            >
-              <div className={`w-8 h-8 rounded-lg ${provider.bgColor} 
-                flex items-center justify-center text-white`}>
-                <Icon size={20} />
-              </div>
-              <span className={`text-sm font-medium ${
-                activeProvider === key ? provider.textColor : "text-gray-600 dark:text-gray-400"
-              }`}>
-                {provider.name}
-              </span>
-            </button>
-          );
-        })}
+        {Object.entries(providerData).map(([key, provider]) => (
+          <button
+            key={key}
+            onClick={() => setActiveProvider(key)}
+            className={`flex items-center gap-2 p-2 rounded-lg flex-shrink-0 transition-colors
+              ${activeProvider === key ? "bg-gray-100 dark:bg-gray-700" : ""}`}
+          >
+            <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${provider.bgGradient} 
+              flex items-center justify-center text-white`}>
+              {key === 'aws' ? <Server size={20} /> : 
+               key === 'azure' ? <Cloud size={20} /> : 
+               <Cpu size={20} />}
+            </div>
+            <span className={`text-sm font-medium ${
+              activeProvider === key ? provider.color : "text-gray-600 dark:text-gray-400"
+            }`}>
+              {provider.name}
+            </span>
+          </button>
+        ))}
       </div>
 
       <div className="flex overflow-x-auto gap-2 mb-4">
@@ -205,7 +204,9 @@ const MobileProviderComparison = () => {
         ))}
       </div>
 
-      {renderContent()}
+      <div className="space-y-4">
+        {renderContent()}
+      </div>
 
       <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
         <p className="text-xs text-gray-500 dark:text-gray-400">
