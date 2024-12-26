@@ -1,5 +1,3 @@
-// src/components/FinOpsMaturityAssessment.jsx
-
 import React, { useState } from "react";
 import { Check, AlertCircle, Info } from "lucide-react";
 
@@ -94,18 +92,17 @@ const FinOpsMaturityAssessment = () => {
   };
 
   const calculateResults = () => {
+    if (!maturityDimensions || maturityDimensions.length === 0) return null;
+
     const dimensionScores = maturityDimensions.map((dimension) => {
       const questionScores = dimension.questions.map((q) => answers[q.id] || 0);
       return {
         dimension: dimension.title,
-        score:
-          questionScores.reduce((a, b) => a + b, 0) / questionScores.length,
+        score: questionScores.reduce((a, b) => a + b, 0) / questionScores.length,
       };
     });
 
-    const overallScore =
-      dimensionScores.reduce((acc, dim) => acc + dim.score, 0) /
-      dimensionScores.length;
+    const overallScore = dimensionScores.reduce((acc, dim) => acc + dim.score, 0) / dimensionScores.length;
 
     return {
       dimensionScores,
@@ -127,8 +124,27 @@ const FinOpsMaturityAssessment = () => {
     );
   };
 
+  const renderRecommendations = (results) => {
+    if (results.overallScore < 2.5) {
+      return [
+        "Consider implementing basic cost allocation and tagging strategies",
+        "Establish foundational cost monitoring practices"
+      ];
+    } else if (results.overallScore < 3.5) {
+      return [
+        "Focus on automating cost optimization processes",
+        "Implement advanced reporting and forecasting"
+      ];
+    } else {
+      return [
+        "Consider AI-driven optimization strategies",
+        "Explore predictive analytics for cost management"
+      ];
+    }
+  };
+
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-xl p-6">
+    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-xl p-4 sm:p-6">
       <div className="max-w-3xl mx-auto">
         <h2 className="text-2xl font-bold mb-6 text-center">
           FinOps Maturity Assessment
@@ -137,12 +153,12 @@ const FinOpsMaturityAssessment = () => {
         {!showResults ? (
           <>
             <div className="mb-8">
-              <div className="flex justify-between mb-4">
+              <div className="flex flex-wrap justify-between mb-4 gap-2">
                 {maturityDimensions.map((dim, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentSection(index)}
-                    className={`px-4 py-2 rounded-lg transition-colors ${
+                    className={`px-4 py-2 rounded-lg transition-colors text-sm sm:text-base ${
                       currentSection === index
                         ? "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
                         : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -154,55 +170,49 @@ const FinOpsMaturityAssessment = () => {
               </div>
 
               <div className="space-y-6">
-                {maturityDimensions[currentSection].questions.map(
-                  (question) => (
-                    <div
-                      key={question.id}
-                      className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6"
-                    >
-                      <p className="mb-4 font-medium">{question.text}</p>
-                      <div className="grid grid-cols-2 gap-4">
-                        {question.options.map((option) => (
-                          <button
-                            key={option.value}
-                            onClick={() =>
-                              handleAnswer(question.id, option.value)
-                            }
-                            className={`p-4 rounded-lg border-2 transition-colors ${
-                              answers[question.id] === option.value
-                                ? "border-blue-500 bg-blue-50 dark:bg-blue-900/30"
-                                : "border-gray-200 dark:border-gray-700 hover:border-blue-200"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2">
-                              <div
-                                className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                                  answers[question.id] === option.value
-                                    ? "border-blue-500 bg-blue-500"
-                                    : "border-gray-300"
-                                }`}
-                              >
-                                {answers[question.id] === option.value && (
-                                  <Check className="w-3 h-3 text-white" />
-                                )}
-                              </div>
-                              <span>{option.label}</span>
+                {maturityDimensions[currentSection].questions.map((question) => (
+                  <div
+                    key={question.id}
+                    className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 sm:p-6"
+                  >
+                    <p className="mb-4 font-medium">{question.text}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {question.options.map((option) => (
+                        <button
+                          key={option.value}
+                          onClick={() => handleAnswer(question.id, option.value)}
+                          className={`p-3 rounded-lg border-2 transition-colors ${
+                            answers[question.id] === option.value
+                              ? "border-blue-500 bg-blue-50 dark:bg-blue-900/30"
+                              : "border-gray-200 dark:border-gray-700 hover:border-blue-200"
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <div
+                              className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                                answers[question.id] === option.value
+                                  ? "border-blue-500 bg-blue-500"
+                                  : "border-gray-300"
+                              }`}
+                            >
+                              {answers[question.id] === option.value && (
+                                <Check className="w-3 h-3 text-white" />
+                              )}
                             </div>
-                          </button>
-                        ))}
-                      </div>
+                            <span>{option.label}</span>
+                          </div>
+                        </button>
+                      ))}
                     </div>
-                  )
-                )}
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center gap-4">
               <button
-                onClick={() =>
-                  setCurrentSection((prev) => Math.max(0, prev - 1))
-                }
-                className="px-6 py-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
+                onClick={() => setCurrentSection((prev) => Math.max(0, prev - 1))}
+                className="px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 text-sm sm:text-base"
                 disabled={currentSection === 0}
               >
                 Previous
@@ -211,7 +221,7 @@ const FinOpsMaturityAssessment = () => {
               {currentSection < maturityDimensions.length - 1 ? (
                 <button
                   onClick={() => setCurrentSection((prev) => prev + 1)}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base"
                 >
                   Next
                 </button>
@@ -219,7 +229,7 @@ const FinOpsMaturityAssessment = () => {
                 <button
                   onClick={() => setShowResults(true)}
                   disabled={!allQuestionsAnswered()}
-                  className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
+                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 text-sm sm:text-base"
                 >
                   View Results
                 </button>
@@ -230,15 +240,15 @@ const FinOpsMaturityAssessment = () => {
           <div className="space-y-8">
             {(() => {
               const results = calculateResults();
+              if (!results) return null;
+
               return (
                 <>
                   <div className="text-center">
                     <h3 className="text-xl font-bold mb-2">
                       Overall Maturity Level
                     </h3>
-                    <p
-                      className={`text-3xl font-bold ${results.maturityLevel.color}`}
-                    >
+                    <p className={`text-3xl font-bold ${results.maturityLevel.color}`}>
                       {results.maturityLevel.level}
                     </p>
                     <p className="text-gray-600 dark:text-gray-400 mt-2">
@@ -250,7 +260,7 @@ const FinOpsMaturityAssessment = () => {
                     {results.dimensionScores.map((dim, index) => (
                       <div
                         key={index}
-                        className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6"
+                        className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 sm:p-6"
                       >
                         <h4 className="font-medium mb-2">{dim.dimension}</h4>
                         <div className="relative pt-1">
@@ -272,62 +282,18 @@ const FinOpsMaturityAssessment = () => {
                     ))}
                   </div>
 
-                  <div className="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-6">
+                  <div className="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 sm:p-6">
                     <h4 className="font-medium mb-4 flex items-center gap-2">
                       <Info className="w-5 h-5 text-blue-600" />
                       Recommendations
                     </h4>
                     <ul className="space-y-2">
-                      {results.overallScore < 2.5 && (
-                        <>
-                          <li className="flex items-start gap-2">
-                            <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" />
-                            <span>
-                              Consider implementing basic cost allocation and
-                              tagging strategies
-                            </span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" />
-                            <span>
-                              Establish foundational cost monitoring practices
-                            </span>
-                          </li>
-                        </>
-                      )}
-                      {results.overallScore >= 2.5 &&
-                        results.overallScore < 3.5 && (
-                          <>
-                            <li className="flex items-start gap-2">
-                              <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5" />
-                              <span>
-                                Focus on automating cost optimization processes
-                              </span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5" />
-                              <span>
-                                Implement advanced reporting and forecasting
-                              </span>
-                            </li>
-                          </>
-                        )}
-                      {results.overallScore >= 3.5 && (
-                        <>
-                          <li className="flex items-start gap-2">
-                            <AlertCircle className="w-5 h-5 text-green-600 mt-0.5" />
-                            <span>
-                              Consider AI-driven optimization strategies
-                            </span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <AlertCircle className="w-5 h-5 text-green-600 mt-0.5" />
-                            <span>
-                              Explore predictive analytics for cost management
-                            </span>
-                          </li>
-                        </>
-                      )}
+                      {renderRecommendations(results).map((recommendation, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <AlertCircle className={`w-5 h-5 mt-0.5 ${results.overallScore < 2.5 ? 'text-yellow-600' : results.overallScore < 3.5 ? 'text-blue-600' : 'text-green-600'}`} />
+                          <span>{recommendation}</span>
+                        </li>
+                      ))}
                     </ul>
                   </div>
 
