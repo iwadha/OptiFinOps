@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Server, Cloud, Cpu } from 'lucide-react';
+import { ChevronDown, Server, Cloud, Cpu } from 'lucide-react';
 
 const MobileProviderComparison = () => {
   const [activeProvider, setActiveProvider] = useState('aws');
@@ -9,136 +9,234 @@ const MobileProviderComparison = () => {
     aws: {
       name: "AWS",
       icon: Server,
-      bgColor: "bg-orange-500",
+      bgGradient: "bg-orange-500",
+      color: "text-orange-400",
       overview: {
         marketShare: "33%",
         globalRegions: "25 regions worldwide",
-        serviceCount: "200+"
+        serviceCount: "200+",
+        certifications: ["SOC", "ISO", "PCI", "HIPAA"]
       },
       compute: {
         types: ["On-demand", "Spot", "Reserved", "Savings Plans"],
         features: ["Auto Scaling", "Load Balancing", "Containers", "Serverless"],
         pricing: "Starting at $0.023/hour"
+      },
+      storage: {
+        types: ["S3", "EBS", "EFS", "Glacier"],
+        features: ["Auto-tiering", "Replication", "Versioning", "Lifecycle"],
+        pricing: "$0.023/GB - $0.125/GB"
+      },
+      database: {
+        types: ["RDS", "DynamoDB", "Redshift", "ElastiCache"],
+        features: ["Auto Backup", "Replicas", "Multi-AZ", "Auto Patch"],
+        pricing: "Pay per hour + storage"
       }
     },
     azure: {
       name: "Azure",
       icon: Cloud,
-      bgColor: "bg-blue-500",
+      bgGradient: "bg-blue-500",
+      color: "text-blue-400",
       overview: {
         marketShare: "22%",
         globalRegions: "60+ regions worldwide",
-        serviceCount: "200+"
+        serviceCount: "200+",
+        certifications: ["SOC", "ISO", "PCI", "HIPAA"]
       },
       compute: {
-        types: ["On-demand", "Spot", "Reserved"],
-        features: ["Auto Scaling", "Load Balancing", "Containers", "Serverless"],
+        types: ["Pay-as-you-go", "Spot", "Reserved"],
+        features: ["VM Scale Sets", "AKS", "Functions", "App Service"],
         pricing: "Starting at $0.02/hour"
+      },
+      storage: {
+        types: ["Blob", "Files", "Disk", "Archive"],
+        features: ["Hot/Cool Tiers", "Redundancy", "Lifecycle", "CDN"],
+        pricing: "$0.018/GB - $0.12/GB"
+      },
+      database: {
+        types: ["SQL", "Cosmos DB", "MySQL", "PostgreSQL"],
+        features: ["Auto-tune", "Geo-rep", "Serverless", "Intelligence"],
+        pricing: "DTU or vCore based"
       }
     },
     gcp: {
       name: "Google",
       icon: Cpu,
-      bgColor: "bg-green-500",
+      bgGradient: "bg-green-500",
+      color: "text-green-400",
       overview: {
         marketShare: "9%",
         globalRegions: "24+ regions worldwide",
-        serviceCount: "100+"
+        serviceCount: "100+",
+        certifications: ["SOC", "ISO", "PCI", "HIPAA"]
       },
       compute: {
-        types: ["On-demand", "Spot", "Reserved"],
-        features: ["Auto Scaling", "Load Balancing", "Containers", "Serverless"],
+        types: ["On-demand", "Preemptible", "Committed"],
+        features: ["Instance Groups", "GKE", "Functions", "App Engine"],
         pricing: "Starting at $0.021/hour"
+      },
+      storage: {
+        types: ["Cloud Storage", "Persistent", "Filestore"],
+        features: ["Multi-regional", "Lifecycle", "Consistency", "CDN"],
+        pricing: "$0.020/GB - $0.115/GB"
+      },
+      database: {
+        types: ["Cloud SQL", "Spanner", "BigTable", "Firestore"],
+        features: ["Replication", "Scaling", "ML Integration", "Serverless"],
+        pricing: "Per-second billing"
       }
     }
   };
 
+  const ContentCard = ({ title, content, type = "text" }) => (
+    <div className="bg-gray-900 rounded-lg w-full p-4 mb-4">
+      <h3 className="text-gray-400 text-sm font-medium mb-2">{title}</h3>
+      {type === "list" ? (
+        <ul className="space-y-2">
+          {content.map((item, idx) => (
+            <li key={idx} className="flex items-start gap-2 text-sm">
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2" />
+              <span className="text-gray-300">{item}</span>
+            </li>
+          ))}
+        </ul>
+      ) : type === "tags" ? (
+        <div className="flex flex-wrap gap-2">
+          {content.map((tag, idx) => (
+            <span 
+              key={idx}
+              className="px-2 py-1 text-xs bg-blue-900 text-blue-300 rounded-lg"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-300">{content}</p>
+      )}
+    </div>
+  );
+
   const renderContent = () => {
     const provider = providerData[activeProvider];
+    const data = provider[activeCategory];
     
     switch (activeCategory) {
       case 'overview':
         return (
-          <div className="space-y-4">
-            <div className="bg-gray-900/60 rounded-lg p-4">
-              <h3 className="text-gray-400 mb-2">Market Share</h3>
-              <p className="text-gray-300">{provider.overview.marketShare}</p>
-            </div>
-            <div className="bg-gray-900/60 rounded-lg p-4">
-              <h3 className="text-gray-400 mb-2">Global Regions</h3>
-              <p className="text-gray-300">{provider.overview.globalRegions}</p>
-            </div>
-            <div className="bg-gray-900/60 rounded-lg p-4">
-              <h3 className="text-gray-400 mb-2">Available Services</h3>
-              <p className="text-gray-300">{provider.overview.serviceCount}</p>
-            </div>
-          </div>
+          <>
+            <ContentCard
+              title="Market Share"
+              content={provider.overview.marketShare}
+            />
+            <ContentCard
+              title="Global Regions"
+              content={provider.overview.globalRegions}
+            />
+            <ContentCard
+              title="Available Services"
+              content={provider.overview.serviceCount}
+            />
+          </>
         );
+      
       case 'compute':
         return (
-          <div className="space-y-4">
-            <div className="bg-gray-900/60 rounded-lg p-4">
-              <h3 className="text-gray-400 mb-2">Compute Types</h3>
-              <div className="flex flex-wrap gap-2">
-                {provider.compute.types.map((type, index) => (
-                  <span key={index} className="bg-blue-900 text-blue-300 px-3 py-1 rounded-lg text-sm">
-                    {type}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="bg-gray-900/60 rounded-lg p-4">
-              <h3 className="text-gray-400 mb-2">Key Features</h3>
-              <div className="space-y-2">
-                {provider.compute.features.map((feature, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-                    <span className="text-gray-300">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="bg-gray-900/60 rounded-lg p-4">
-              <h3 className="text-gray-400 mb-2">Pricing</h3>
-              <p className="text-gray-300">{provider.compute.pricing}</p>
-            </div>
-          </div>
+          <>
+            <ContentCard
+              title="Compute Types"
+              content={data.types}
+              type="tags"
+            />
+            <ContentCard
+              title="Key Features"
+              content={data.features}
+              type="list"
+            />
+            <ContentCard
+              title="Pricing"
+              content={data.pricing}
+            />
+          </>
         );
+      
+      case 'storage':
+        return (
+          <>
+            <ContentCard
+              title="Storage Types"
+              content={data.types}
+              type="tags"
+            />
+            <ContentCard
+              title="Features"
+              content={data.features}
+              type="list"
+            />
+            <ContentCard
+              title="Pricing"
+              content={data.pricing}
+            />
+          </>
+        );
+      
+      case 'database':
+        return (
+          <>
+            <ContentCard
+              title="Database Types"
+              content={data.types}
+              type="tags"
+            />
+            <ContentCard
+              title="Features"
+              content={data.features}
+              type="list"
+            />
+            <ContentCard
+              title="Pricing"
+              content={data.pricing}
+            />
+          </>
+        );
+      
       default:
         return null;
     }
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      {/* Cloud Provider Selection */}
-      <div className="bg-gray-900/60 rounded-lg p-4">
-        <div className="flex items-center justify-between px-2">
+    <div className="w-full">
+      {/* Provider Selection - Fixed width container */}
+      <div className="bg-gray-900 rounded-lg p-4 mb-4">
+        <div className="flex justify-between items-center">
           {Object.entries(providerData).map(([key, provider]) => (
             <button
               key={key}
               onClick={() => setActiveProvider(key)}
-              className="flex items-center gap-2"
+              className={`flex items-center gap-2 p-2 rounded-lg transition-colors
+                ${activeProvider === key ? "bg-gray-800" : ""}`}
             >
-              <div className={`w-8 h-8 rounded-lg ${provider.bgColor} flex items-center justify-center`}>
-                <provider.icon className="h-5 w-5 text-white" />
+              <div className={`w-8 h-8 rounded-lg ${provider.bgGradient} flex items-center justify-center`}>
+                <provider.icon size={20} className="text-white" />
               </div>
-              <span className="text-gray-300 text-sm">{provider.name}</span>
+              <span className={`text-sm font-medium text-gray-300`}>{provider.name}</span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Category Tabs */}
-      <div className="bg-gray-900/60 rounded-lg p-4">
-        <div className="flex gap-4 overflow-x-auto no-scrollbar">
+      {/* Category Selection - Scrollable container */}
+      <div className="bg-gray-900 rounded-lg p-4 mb-4">
+        <div className="flex overflow-x-auto gap-4 no-scrollbar">
           {['overview', 'compute', 'storage', 'database'].map(category => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`px-3 py-1 rounded-lg text-sm whitespace-nowrap ${
+              className={`px-4 py-2 rounded-lg text-sm whitespace-nowrap ${
                 activeCategory === category 
-                  ? "bg-blue-900 text-blue-300" 
+                  ? "bg-blue-900 text-blue-300"
                   : "text-gray-400"
               }`}
             >
@@ -148,17 +246,9 @@ const MobileProviderComparison = () => {
         </div>
       </div>
 
-      {/* Content Area */}
-      {renderContent()}
-      
-      {/* Let's Talk Button */}
-      <div className="flex justify-center mt-4">
-        <button
-          onClick={() => document.getElementById('contactModal').classList.remove('hidden')}
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all"
-        >
-          Let's Talk
-        </button>
+      {/* Content Section */}
+      <div className="space-y-4">
+        {renderContent()}
       </div>
     </div>
   );
