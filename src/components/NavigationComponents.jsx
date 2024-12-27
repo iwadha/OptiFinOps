@@ -110,15 +110,73 @@ export const ProviderComparison = () => {
     };
   }, []);
 
-  const DesktopComparison = () => {
-    const [activeTab, setActiveTab] = useState('overview');
-    
-    const tabs = [
-      { id: 'overview', label: 'Overview', icon: Server },
-      { id: 'compute', label: 'Compute', icon: Cloud },
-      { id: 'storage', label: 'Storage', icon: Server },
-      { id: 'database', label: 'Database', icon: Cpu }
-    ];
+ const DesktopComparison = () => {
+  const [activeTab, setActiveTab] = useState('overview');
+  
+  const tabs = [
+    { id: 'overview', label: 'Overview', icon: Server },
+    { id: 'compute', label: 'Compute', icon: Cloud },
+    { id: 'storage', label: 'Storage', icon: Server },
+    { id: 'database', label: 'Database', icon: Cpu }
+  ];
+
+  const providerData = {
+    aws: {
+      name: "AWS",
+      icon: Server,
+      bgGradient: "from-orange-500 to-orange-600"
+    },
+    azure: {
+      name: "Azure",
+      icon: Cloud,
+      bgGradient: "from-blue-500 to-blue-600"
+    },
+    gcp: {
+      name: "Google",
+      icon: Cpu,
+      bgGradient: "from-green-500 to-green-600"
+    }
+  };
+
+  return (
+    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden">
+      <div className="border-b dark:border-gray-800">
+        <div className="flex">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 px-6 py-3 border-b-2 transition-colors ${
+                activeTab === tab.id
+                  ? "border-blue-500 text-blue-600 dark:text-blue-400"
+                  : "border-transparent hover:border-gray-300 dark:hover:border-gray-700"
+              }`}
+            >
+              <tab.icon className="w-4 h-4" />
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="p-6 overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b dark:border-gray-700">
+              <th className="p-4 text-left">{activeTab === 'overview' ? 'Metric' : 'Feature'}</th>
+              {Object.entries(providerData).map(([key, provider]) => (
+                <th key={key} className="p-4 text-left">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${provider.bgGradient} flex items-center justify-center text-white`}>
+                      <provider.icon size={20} className="text-white" />
+                    </div>
+                    <span>{provider.name}</span>
+                  </div>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
 
     return (
       <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden">
