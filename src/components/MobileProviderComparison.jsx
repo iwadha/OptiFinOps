@@ -165,8 +165,8 @@ const MobileProviderComparison = () => {
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
-      <div className="flex overflow-x-auto gap-2 mb-4 p-2 bg-white dark:bg-gray-800 rounded-lg">
+    <div className="bg-gray-50 dark:bg-gray-900 rounded-lg px-0 py-4">
+      <div className="flex overflow-x-auto gap-2 p-2 mx-4 bg-white dark:bg-gray-800 rounded-lg mb-4">
         {Object.entries(providerData).map(([key, provider]) => (
           <button
             key={key}
@@ -189,7 +189,7 @@ const MobileProviderComparison = () => {
         ))}
       </div>
 
-      <div className="flex overflow-x-auto gap-2 mb-4">
+      <div className="flex overflow-x-auto gap-2 mb-4 mx-4">
         {['overview', 'compute', 'storage', 'database'].map(category => (
           <button
             key={category}
@@ -204,7 +204,7 @@ const MobileProviderComparison = () => {
         ))}
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 px-4">
         {renderContent()}
       </div>
 
