@@ -178,24 +178,7 @@ export const ProviderComparison = () => {
           </thead>
           <tbody>
 
-    return (
-      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden">
-        <div className="flex border-b dark:border-gray-800">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-6 py-3 border-b-2 transition-colors ${
-                activeTab === tab.id
-                  ? "border-blue-500 text-blue-600 dark:text-blue-400"
-                  : "border-transparent hover:border-gray-300 dark:hover:border-gray-700"
-              }`}
-            >
-              <tab.icon className="w-4 h-4" />
-              {tab.label}
-            </button>
-          ))}
-        </div>
+    
 
         <div className="p-6 overflow-x-auto">
           <table className="w-full">
