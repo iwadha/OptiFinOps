@@ -9,16 +9,16 @@ const MobileProviderComparison = () => {
     aws: {
       name: "AWS",
       icon: Server,
-      bgGradient: "from-orange-500 to-orange-600",
-      color: "text-orange-600",
+      bgGradient: "bg-orange-500",
+      color: "text-orange-400",
       overview: {
         marketShare: "33%",
-        globalRegions: 25,
+        globalRegions: "25 regions worldwide",
         serviceCount: "200+",
         certifications: ["SOC", "ISO", "PCI", "HIPAA"]
       },
       compute: {
-        types: ["On-demand", "Spot", "Reserved Instances", "Savings Plans"],
+        types: ["On-demand", "Spot", "Reserved", "Savings Plans"],
         features: ["Auto Scaling", "Load Balancing", "Containers", "Serverless"],
         pricing: "Starting at $0.023/hour"
       },
@@ -36,11 +36,11 @@ const MobileProviderComparison = () => {
     azure: {
       name: "Azure",
       icon: Cloud,
-      bgGradient: "from-blue-500 to-blue-600",
-      color: "text-blue-600",
+      bgGradient: "bg-blue-500",
+      color: "text-blue-400",
       overview: {
         marketShare: "22%",
-        globalRegions: 60,
+        globalRegions: "60+ regions worldwide",
         serviceCount: "200+",
         certifications: ["SOC", "ISO", "PCI", "HIPAA"]
       },
@@ -63,11 +63,11 @@ const MobileProviderComparison = () => {
     gcp: {
       name: "Google",
       icon: Cpu,
-      bgGradient: "from-green-500 to-green-600",
-      color: "text-green-600",
+      bgGradient: "bg-green-500",
+      color: "text-green-400",
       overview: {
         marketShare: "9%",
-        globalRegions: 24,
+        globalRegions: "24+ regions worldwide",
         serviceCount: "100+",
         certifications: ["SOC", "ISO", "PCI", "HIPAA"]
       },
@@ -89,15 +89,38 @@ const MobileProviderComparison = () => {
     }
   };
 
-  const ContentCard = ({ title, content }) => (
-    <div className="bg-gray-800/50 w-full p-4">
-      <h3 className="text-sm font-medium text-gray-300 mb-2">{title}</h3>
-      <p className="text-sm text-gray-400">{content}</p>
+  const ContentCard = ({ title, content, type = "text" }) => (
+    <div className="bg-gray-900 rounded-lg w-full p-4 mb-4">
+      <h3 className="text-gray-400 text-sm font-medium mb-2">{title}</h3>
+      {type === "list" ? (
+        <ul className="space-y-2">
+          {content.map((item, idx) => (
+            <li key={idx} className="flex items-start gap-2 text-sm">
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2" />
+              <span className="text-gray-300">{item}</span>
+            </li>
+          ))}
+        </ul>
+      ) : type === "tags" ? (
+        <div className="flex flex-wrap gap-2">
+          {content.map((tag, idx) => (
+            <span 
+              key={idx}
+              className="px-2 py-1 text-xs bg-blue-900 text-blue-300 rounded-lg"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-300">{content}</p>
+      )}
     </div>
   );
 
   const renderContent = () => {
     const provider = providerData[activeProvider];
+    const data = provider[activeCategory];
     
     switch (activeCategory) {
       case 'overview':
@@ -109,7 +132,7 @@ const MobileProviderComparison = () => {
             />
             <ContentCard
               title="Global Regions"
-              content={`${provider.overview.globalRegions} regions worldwide`}
+              content={provider.overview.globalRegions}
             />
             <ContentCard
               title="Available Services"
@@ -117,57 +140,67 @@ const MobileProviderComparison = () => {
             />
           </>
         );
+      
       case 'compute':
         return (
           <>
             <ContentCard
               title="Compute Types"
-              content={provider.compute.types.join(", ")}
+              content={data.types}
+              type="tags"
             />
             <ContentCard
               title="Key Features"
-              content={provider.compute.features.join(", ")}
+              content={data.features}
+              type="list"
             />
             <ContentCard
               title="Pricing"
-              content={provider.compute.pricing}
+              content={data.pricing}
             />
           </>
         );
+      
       case 'storage':
         return (
           <>
             <ContentCard
               title="Storage Types"
-              content={provider.storage.types.join(", ")}
+              content={data.types}
+              type="tags"
             />
             <ContentCard
               title="Features"
-              content={provider.storage.features.join(", ")}
+              content={data.features}
+              type="list"
             />
             <ContentCard
               title="Pricing"
-              content={provider.storage.pricing}
+              content={data.pricing}
             />
           </>
         );
+      
       case 'database':
         return (
           <>
             <ContentCard
               title="Database Types"
-              content={provider.database.types.join(", ")}
+              content={data.types}
+              type="tags"
             />
             <ContentCard
               title="Features"
-              content={provider.database.features.join(", ")}
+              content={data.features}
+              type="list"
             />
             <ContentCard
               title="Pricing"
-              content={provider.database.pricing}
+              content={data.pricing}
             />
           </>
         );
+      
       default:
         return null;
     }
@@ -175,38 +208,35 @@ const MobileProviderComparison = () => {
 
   return (
     <div className="w-full">
-      {/* Provider Selector */}
-      <div className="bg-gray-800/50 w-full p-4 mb-4">
-        <div className="flex gap-4">
+      {/* Provider Selection - Fixed width container */}
+      <div className="bg-gray-900 rounded-lg p-4 mb-4">
+        <div className="flex justify-between items-center">
           {Object.entries(providerData).map(([key, provider]) => (
             <button
               key={key}
               onClick={() => setActiveProvider(key)}
-              className={`flex items-center gap-2 rounded-lg flex-shrink-0 transition-colors
-                ${activeProvider === key ? "bg-gray-700/50" : ""} p-2`}
+              className={`flex items-center gap-2 p-2 rounded-lg transition-colors
+                ${activeProvider === key ? "bg-gray-800" : ""}`}
             >
-              <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${provider.bgGradient} 
-                flex items-center justify-center text-white`}>
-                <provider.icon size={20} />
+              <div className={`w-8 h-8 rounded-lg ${provider.bgGradient} flex items-center justify-center`}>
+                <provider.icon size={20} className="text-white" />
               </div>
-              <span className={`text-sm font-medium text-gray-300`}>
-                {provider.name}
-              </span>
+              <span className={`text-sm font-medium text-gray-300`}>{provider.name}</span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Category Tabs */}
-      <div className="bg-gray-800/50 w-full p-4 mb-4">
-        <div className="flex gap-4">
+      {/* Category Selection - Scrollable container */}
+      <div className="bg-gray-900 rounded-lg p-4 mb-4">
+        <div className="flex overflow-x-auto gap-4 no-scrollbar">
           {['overview', 'compute', 'storage', 'database'].map(category => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`px-4 py-2 rounded-lg text-sm transition-colors ${
+              className={`px-4 py-2 rounded-lg text-sm whitespace-nowrap ${
                 activeCategory === category 
-                  ? "bg-blue-900/50 text-blue-300"
+                  ? "bg-blue-900 text-blue-300"
                   : "text-gray-400"
               }`}
             >
@@ -217,7 +247,7 @@ const MobileProviderComparison = () => {
       </div>
 
       {/* Content Section */}
-      <div className="w-full space-y-4">
+      <div className="space-y-4">
         {renderContent()}
       </div>
     </div>
