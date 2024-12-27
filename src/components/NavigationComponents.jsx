@@ -98,5 +98,4 @@ export const FAQSection = () => {
 export default {
   Breadcrumb,
   FAQSection,
-  ProviderComparison,
 };
