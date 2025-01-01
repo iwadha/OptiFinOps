@@ -89,7 +89,17 @@ export default function ContactForm() {
               <i className="fab fa-linkedin text-2xl"></i>
           </a>
         </div>
-          
+
+              <div className="mt-4 mb-4">
+    
+      href="/privacy-policy"
+      className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+    >
+      Privacy Policy
+    </a>
+  </div>
+
+            
             <p className="mt-4">© 2024 OptiFinOps FZE. All rights reserved.</p>
           </div>
         </div>
