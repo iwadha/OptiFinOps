@@ -99,7 +99,7 @@ export default function ContactForm() {
   </div>
 
             
-            <p className="mt-4">© 2024 OptiFinOps FZE. All rights reserved.</p>
+            <p className="mt-4">© 2025 OptiFinOps FZE. All rights reserved.</p>
           </div>
         </div>
       </div>
