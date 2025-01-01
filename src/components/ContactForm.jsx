@@ -90,13 +90,12 @@ export default function ContactForm() {
           </a>
         </div>
 
-              <div className="mt-4 mb-4">
+        <div className="mt-4 mb-4">
     
-      href="/privacy-policy"
-      className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
-    >
+          href="/privacy-policy"
+          className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
       Privacy Policy
-    </a>
+          </a>
   </div>
 
             
