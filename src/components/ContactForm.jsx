@@ -91,7 +91,7 @@ export default function ContactForm() {
         </div>
 
         <div className="mt-4 mb-4">
-    
+      <a
           href="/privacy-policy"
           className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
       Privacy Policy
